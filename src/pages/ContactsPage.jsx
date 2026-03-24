@@ -31,9 +31,7 @@ export default function ContactsPage() {
 
   const fetchContacts = async () => {
     try {
-      const res = await fetch('https://api.brevo.com/v3/contacts', {
-        headers: { 'api-key': import.meta.env.VITE_BREVO_API_KEY, 'Accept': 'application/json' }
-      });
+      const res = await fetch('/api/brevo/contacts');
       if (res.ok) {
         const data = await res.json();
         const formatted = (data.contacts || []).map(c => ({
@@ -76,13 +74,9 @@ export default function ContactsPage() {
       }
       if (newContact.company) attributes.COMPANY = newContact.company;
 
-      const res = await fetch('https://api.brevo.com/v3/contacts', {
+      const res = await fetch('/api/brevo/contacts', {
         method: 'POST',
-        headers: {
-          'api-key': import.meta.env.VITE_BREVO_API_KEY,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: newContact.email, attributes })
       });
       if (!res.ok) {

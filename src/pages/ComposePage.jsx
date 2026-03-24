@@ -237,13 +237,9 @@ export default function ComposePage() {
         payload.attachment = attachArray;
       }
 
-      const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+      const res = await fetch('/api/brevo/smtp/email', {
         method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'api-key': import.meta.env.VITE_BREVO_API_KEY
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
 

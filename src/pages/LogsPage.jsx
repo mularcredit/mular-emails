@@ -17,9 +17,7 @@ export default function LogsPage() {
 
   const fetchLogs = async () => {
     try {
-      const res = await fetch('https://api.brevo.com/v3/smtp/statistics/events', {
-        headers: { 'api-key': import.meta.env.VITE_BREVO_API_KEY, 'Accept': 'application/json' }
-      });
+      const res = await fetch('/api/brevo/smtp/statistics/events');
       if (res.ok) {
         const data = await res.json();
         const formatted = (data.events || []).map((e, index) => ({

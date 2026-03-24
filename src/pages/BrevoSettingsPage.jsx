@@ -31,9 +31,7 @@ export default function BrevoSettingsPage() {
     if (!form.apiKey) return;
     setLoadingSenders(true);
     try {
-      const res = await fetch('https://api.brevo.com/v3/senders', {
-        headers: { 'api-key': form.apiKey, 'Accept': 'application/json' }
-      });
+      const res = await fetch('/api/brevo/senders');
       if (res.ok) {
         const data = await res.json();
         setSenders(data.senders || []);
@@ -51,9 +49,9 @@ export default function BrevoSettingsPage() {
     }
     setRegistering(true);
     try {
-      const res = await fetch('https://api.brevo.com/v3/senders', {
+      const res = await fetch('/api/brevo/senders', {
         method: 'POST',
-        headers: { 'api-key': form.apiKey, 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: newSenderName, email: newSenderEmail })
       });
       if (!res.ok) {
