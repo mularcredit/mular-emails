@@ -11,7 +11,6 @@ import AnalyticsPage from './pages/AnalyticsPage';
 import BrevoSettingsPage from './pages/BrevoSettingsPage';
 import SmtpSettingsPage from './pages/SmtpSettingsPage';
 import ProfilePage from './pages/ProfilePage';
-import DraftsPage from './pages/DraftsPage';
 import { Toaster } from 'react-hot-toast';
 
 function ProtectedRoute({ children }) {
