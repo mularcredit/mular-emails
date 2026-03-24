@@ -14,7 +14,7 @@ const brevoReq = async (path, init={}) => {
   });
 };
 
-router.all('/*', async (req, res) => {
+router.use(async (req, res) => {
   try {
     const urlPath = req.url;
     const init = { method: req.method };
