@@ -169,12 +169,7 @@ export default function ComposePage() {
   useEffect(() => {
     async function fetchSenders() {
       try {
-        const res = await fetch('https://api.brevo.com/v3/senders', {
-          headers: {
-            'api-key': import.meta.env.VITE_BREVO_API_KEY,
-            'Accept': 'application/json'
-          }
-        });
+        const res = await fetch('/api/brevo/senders');
         if (res.ok) {
           const data = await res.json();
           const activeSenders = (data.senders || []).filter(s => s.active);
