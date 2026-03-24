@@ -34,6 +34,17 @@ export async function setupDb() {
       );
       console.log('Seed: Admin user created -> admin@mular.io / password123');
     }
+
+    // Check if Titus Masua exists
+    const resTitus = await client.query('SELECT id FROM users WHERE email = $1', ['tmasua@mularcredit.co.ke']);
+    if (resTitus.rows.length === 0) {
+      const hash = await bcrypt.hash('password2024', 10);
+      await client.query(
+        'INSERT INTO users (name, email, password_hash) VALUES ($1, $2, $3)',
+        ['Titus Masua', 'tmasua@mularcredit.co.ke', hash]
+      );
+      console.log('Seed: User created -> tmasua@mularcredit.co.ke / password2024');
+    }
     
     console.log('Database connected and initialized successfully.');
   } catch (error) {
