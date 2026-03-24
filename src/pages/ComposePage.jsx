@@ -264,11 +264,59 @@ export default function ComposePage() {
     setSending(false);
   };
 
+  const [draftId, setDraftId] = useState(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('draftId');
+    if (id) {
+      setDraftId(id);
+      const token = localStorage.getItem('token');
+      fetch('/api/drafts', { headers: { 'Authorization': `Bearer ${token}` } })
+        .then(r => r.json())
+        .then(drafts => {
+          const draft = drafts.find(d => d.id == id);
+          if (draft) {
+             setForm(f => ({ ...f, subject: draft.subject }));
+             setBody(draft.html_content);
+             const recs = draft.recipients || {};
+             setToTags(recs.to || []);
+             setCcTags(recs.cc || []);
+             setBccTags(recs.bcc || []);
+          }
+        });
+    }
+  }, []);
+
   const handleDraft = async () => {
     setSavingDraft(true);
-    await new Promise((r) => setTimeout(r, 800));
+    try {
+      const payload = {
+        subject: form.subject || '(No Subject)',
+        html_content: body,
+        recipients: { to: toTags, cc: ccTags, bcc: bccTags }
+      };
+      const token = localStorage.getItem('token');
+      const url = draftId ? `/api/drafts/${draftId}` : '/api/drafts';
+      const method = draftId ? 'PUT' : 'POST';
+
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify(payload)
+      });
+      
+      if (res.ok) {
+        const data = await res.json();
+        setDraftId(data.id);
+        toast.success(draftId ? 'Draft updated securely' : 'Draft saved to database');
+      } else {
+        toast.error('Failed to save draft');
+      }
+    } catch (e) {
+      toast.error('Network error saving draft');
+    }
     setSavingDraft(false);
-    toast.success('Draft saved');
   };
 
   const handleTestSend = async () => {

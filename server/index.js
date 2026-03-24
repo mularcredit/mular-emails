@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import { setupDb } from './initDb.js';
 import authRoutes from './routes/auth.js';
 import brevoRoutes from './routes/brevo.js';
+import draftsRoutes from './routes/drafts.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,6 +18,7 @@ app.use(express.json({ limit: '50mb' }));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/brevo', brevoRoutes);
+app.use('/api/drafts', draftsRoutes);
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 

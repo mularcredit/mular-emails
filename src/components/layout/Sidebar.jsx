@@ -3,12 +3,13 @@ import { useAuth } from '../../context/AuthContext';
 import clsx from 'clsx';
 import {
   Mail, Send, FileText, Users, Settings, BarChart3, ClipboardList,
-  Zap, UserCircle, ChevronLeft, ChevronRight, LogOut
+  Zap, UserCircle, ChevronLeft, ChevronRight, LogOut, FileEdit
 } from 'lucide-react';
 import { useState } from 'react';
 
 const navItems = [
   { to: '/compose', icon: Mail, label: 'Compose' },
+  { to: '/drafts', icon: FileEdit, label: 'Drafts' },
   { to: '/logs', icon: Send, label: 'Sent Emails' },
   { to: '/templates', icon: FileText, label: 'Templates' },
   { to: '/contacts', icon: Users, label: 'Contacts' },

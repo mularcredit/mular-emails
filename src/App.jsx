@@ -6,10 +6,12 @@ import ComposePage from './pages/ComposePage';
 import LogsPage from './pages/LogsPage';
 import TemplatesPage from './pages/TemplatesPage';
 import ContactsPage from './pages/ContactsPage';
+import DraftsPage from './pages/DraftsPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import BrevoSettingsPage from './pages/BrevoSettingsPage';
 import SmtpSettingsPage from './pages/SmtpSettingsPage';
 import ProfilePage from './pages/ProfilePage';
+import DraftsPage from './pages/DraftsPage';
 import { Toaster } from 'react-hot-toast';
 
 function ProtectedRoute({ children }) {
@@ -25,6 +27,7 @@ function AppRoutes() {
     <Routes>
       <Route path="/login" element={isAuthenticated ? <Navigate to="/compose" replace /> : <LoginPage />} />
       <Route path="/compose" element={<ProtectedRoute><ComposePage /></ProtectedRoute>} />
+      <Route path="/drafts" element={<ProtectedRoute><DraftsPage /></ProtectedRoute>} />
       <Route path="/logs" element={<ProtectedRoute><LogsPage /></ProtectedRoute>} />
       <Route path="/templates" element={<ProtectedRoute><TemplatesPage /></ProtectedRoute>} />
       <Route path="/contacts" element={<ProtectedRoute><ContactsPage /></ProtectedRoute>} />
